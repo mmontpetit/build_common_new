@@ -1,0 +1,6 @@
+machine:
+  environment:
+    foo: bar
+    baz: 123
+
+
