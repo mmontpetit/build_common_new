@@ -6,12 +6,10 @@ test:
   post:
     - >
       if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
-        ./bin/run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
+        ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
       fi
 
 deployment:
   staging:
     branch: master
-    heroku:
-      appname: staging-dawn-435
-
+      - ./deploy.sh
