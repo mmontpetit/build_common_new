@@ -2,6 +2,13 @@ machine:
   python:
     version: 2.7.6
 
+test:
+  post:
+    - >
+      if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
+        ./bin/run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
+      fi
+
 deployment:
   staging:
     branch: master
