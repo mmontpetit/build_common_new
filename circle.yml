@@ -10,7 +10,7 @@ test:
       fi
 
 
-  deploy-dev:
-    branch: /^(?!master).*$/
-    commands:
-      - ./deploy.sh
+deploy-dev:
+  branch: /^(?!master).*$/
+  commands:
+    - ./deploy.sh
