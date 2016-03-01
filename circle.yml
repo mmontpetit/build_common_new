@@ -1,6 +1,10 @@
 machine:
-  environment:
-    foo: bar
-    baz: 123
+  python:
+    version: 2.7.6
 
+deployment:
+  staging:
+    branch: master
+    heroku:
+      appname: staging-dawn-435
 
