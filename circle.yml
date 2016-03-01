@@ -9,8 +9,7 @@ test:
         ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
       fi
 
-
-deploy-dev:
-  branch: /^(?!master).*$/
+deployment:
+  deploy-master:
   commands:
     - ./deploy.sh
