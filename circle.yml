@@ -1,6 +1,9 @@
 machine:
-  python:
-    version: 2.7.6
+  services:
+    - docker
+  environment:
+    DOCKER_REPO: qlik/cloudhub
+    AWS_STAGE_REGION: us-east-1 eu-west-1
 
 test:
   post:
@@ -13,4 +16,8 @@ deployment:
   staging:
     branch: master
     commands:
+      - >
+        if [ -n "${DEPLOY_TO_PROD}" ]; then
+            ./run-functional-tests.sh ${TARGET};
+        fi
       - ./deploy.sh
