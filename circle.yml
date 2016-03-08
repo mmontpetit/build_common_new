@@ -9,7 +9,7 @@ machine:
 test:
   post:
     - >
-      if [ "${ACCOUNT}" = "stage" ]; then
+      if [ "${ACCOUNT}" == "stage" ]; then
         ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
       fi
 
@@ -19,6 +19,6 @@ deployment:
     commands:
       - >
         if [ -n "${DEPLOY_TO_PROD}" ]; then
-            ./run-functional-tests.sh ${TARGET};
+            ./deploy.sh ${TARGET};
         fi
       - ./deploy.sh
