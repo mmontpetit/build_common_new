@@ -9,10 +9,10 @@ machine:
 test:
   post:
     - >
-      if [ "${ACCOUNT}" == "stage" ]; then
+      if [ "${ACCOUNT}" == "stage" ]; then     
         ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
       fi
-
+      echo ${ACCOUNT}
 deployment:
   staging:
     branch: master
