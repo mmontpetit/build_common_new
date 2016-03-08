@@ -12,7 +12,7 @@ test:
       if [ "${ACCOUNT}" == "stage" ]; then     
         ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
       fi
-      echo ${ACCOUNT}
+    - echo "Account =  ${ACCOUNT}"
 deployment:
   staging:
     branch: master
