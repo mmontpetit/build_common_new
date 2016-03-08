@@ -4,11 +4,12 @@ machine:
   environment:
     DOCKER_REPO: qlik/cloudhub
     AWS_STAGE_REGION: us-east-1 eu-west-1
+    ACCOUNT: dev
 
 test:
   post:
     - >
-      if [ -n "${RUN_NIGHTLY_BUILD}" ]; then
+      if [ "${ACCOUNT}" = "stage" ]; then
         ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
       fi
 
