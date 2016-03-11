@@ -2,6 +2,13 @@ machine:
   services:
     - docker
 
+dependencies:
+  cache_directories:
+    - ~/bin
+  pre:
+    - cat version.txt
+
+
 test:
   post:
     - >
