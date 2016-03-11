@@ -1,25 +1,21 @@
 machine:
   services:
     - docker
-  environment:
-    DOCKER_REPO: qlik/cloudhub
-    AWS_STAGE_REGION: us-east-1 eu-west-1
-    ENV_ACCOUNT: dev
 
 test:
   post:
-    - export ENV_ACCOUNT=${ACCOUNT}
     - >
-      if [ "${ACCOUNT}" == "stage" ]; then     
-        ./run-functional-tests.sh ${FUNCTIONAL_TEST_TARGET};
+      if [ -n "${RUN_TEST}" ]; then     
+        ./run-functional-tests.sh;
       fi
-    - echo "Account =  ${ENV_ACCOUNT}"
+
 deployment:
   staging:
     branch: master
     commands:
       - >
         if [ -n "${DEPLOY_TO_PROD}" ]; then
-            ./deploy.sh ${TARGET};
+            ./deploy.sh;
+        else
+            echo "Deploy to "
         fi
-      - ./deploy.sh
