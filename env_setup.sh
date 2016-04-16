@@ -1,3 +1,4 @@
+#!/bin/bash
 # Default Values
 _artifacts=${CIRCLE_ARTIFACTS:-.}
 _build_number=${BUILD_NUMBER:-0}
