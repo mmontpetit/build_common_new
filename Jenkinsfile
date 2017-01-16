@@ -9,7 +9,7 @@ node('IOS-SLAVE04') {
         } 
     }  
     stage('Web Component') {
-    if(params["myparam"]=="buildWeb" && params["myparam"]=="build"){
+    if(params["myparam"]=="buildWeb" | params["myparam"]=="build"){
          println "build web only"
     }
     
