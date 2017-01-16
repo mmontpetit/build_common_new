@@ -1,7 +1,6 @@
 node('IOS-SLAVE04') {
     stage('Preparation') {
-		checkout scm
-        configFileProvider([configFile(fileId: '81a4b78c-98e2-4b5b-b6de-91ff113685e8', targetLocation: 'gradle.properties')]) {
+		configFileProvider([configFile(fileId: '81a4b78c-98e2-4b5b-b6de-91ff113685e8', targetLocation: 'gradle.properties')]) {
            // some block
         }
         withCredentials([usernamePassword(credentialsId: 'jenkins-qliktech', passwordVariable: 'ARTIFACTORY_PASSWORD', usernameVariable: 'ARTIFACTORY_USER')]) {
