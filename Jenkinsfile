@@ -1,1 +1,5 @@
-properties([[$class: 'DatadogJobProperty', tagFile: '', tagProperties: ''], [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false], parameters([choice(choices: ['one', 'two'], description: 'test', name: 'build_options')]), [$class: 'ThrottleJobProperty', categories: [], limitOneJobWithMatchingParams: false, maxConcurrentPerNode: 0, maxConcurrentTotal: 0, paramsToUseForLimit: '', throttleEnabled: false, throttleOption: 'project'], pipelineTriggers([])])
+nodei('IOS-SLAVE04') {
+    //Dislay the parameter value of the parameter name "myparam"
+    println myparam
+    sh "echo '${myparam}'"
+}
