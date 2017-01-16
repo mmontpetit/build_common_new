@@ -1,9 +1,7 @@
 node('IOS-SLAVE04') {
 
     if (getBinding().hasVariable("myparam")) {
-       x = getProperty("myparam")
-       println x
-       switch ( x ) {
+       switch ( myparam ) {
            case "build":
                println "build all"
            case "buildWeb":
