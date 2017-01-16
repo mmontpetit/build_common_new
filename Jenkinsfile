@@ -1,12 +1,18 @@
 node('IOS-SLAVE04') {
 
     if (getBinding().hasVariable("myparam")) {
-        
-       if (getProperty("myparam") = "build") {
-          println "build all"
-       else
-	  println "single com"
+
+       switch ('${myparam}') {
+           case "build":
+               println "build all"
+           case "buildWeb":
+               println "build web only"
+           case "buildClient":
+               println "Build client only"
        }
+
+
+       
     }
 
     sh "echo '${myparam}'"
