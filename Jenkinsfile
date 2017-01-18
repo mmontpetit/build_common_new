@@ -4,9 +4,6 @@ def webTest = true
 def clientTest = true
 def buildTarget = 'build'
 
-
-
-
 node {
  
     stage('Parameters') {
@@ -14,8 +11,8 @@ node {
     		timeout(time: 30, unit: 'SECONDS') { // timeout before defaults are used
         	paramInput = input(
  			id: 'paramInput', message: 'This project is parameterized', parameters: [
- 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web_Test'],
- 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Client_Test'],
+ 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web Test'],
+ 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Client Test'],
 // 				  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
  				[$class: 'ChoiceParameterDefinition', choices: 'build\nbuildWeb\nbuildClient', description: '', name: 'Target']
 			]) 
@@ -32,14 +29,14 @@ node {
 
 	    if (didTimeout) {
     	    // do something on timeout
-        	println "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
+    	    println " Git Branch Name: " + env.BRANCH_NAME
+        	println "Default Parameters for this Build are --> Target: " + buildTarget + "  |Web Test: " + webTest + "  |Client Test: " + clientTest
     	} else if (userInput == true) {
         	// do something
- 			webTest = paramInput['Web_Test']
-        	clientTest = paramInput['Client_Test']
+ 			webTest = paramInput['Web Test']
+        	clientTest = paramInput['Client Test']
         	buildTarget = paramInput['Target']
-        	println env.BRANCH_NAME
-       		println "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
+       		println "Override Parameters for this Build are --> Target: " + buildTarget + "  |Web Test: " + webTest + "  |Client Test: " + clientTest
     	} else {
         	// do something else
         	println "Parameters setup was not successful"
