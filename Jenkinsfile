@@ -40,7 +40,7 @@ node {
         echo "this was not successful"
         currentBuild.result = 'FAILURE'
     } 
-}
+
     }
     stage('Publishing') {
 
