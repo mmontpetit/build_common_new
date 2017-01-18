@@ -1,0 +1,59 @@
+#!groovy
+properties([[$class: 'jenkins.model.BuildDiscarderProperty', strategy: [$class: 'LogRotator',
+                                                                        artifactNumToKeepStr: '3']]])
+
+node('test || msbuild') {
+    ws(getWsWithoutUrlEncoding()) {
+        checkout scm
+        step([$class: 'GitHubCommitStatusSetter'])
+        stash name: 'source', useDefaultExcludes: false
+        stash name: 'process-cleanup', includes: '*.ps1'
+    }
+}
+
+node('test || msbuild') {
+    unstash name: 'process-cleanup'
+    cleanProcessesAndDirectories()
+    unstash 'source'
+    //Build step for installation packages
+    load('groovy/buildSteps.groovy')
+}
+
+node('test || msbuild') {
+    unstash name: 'process-cleanup'
+    cleanProcessesAndDirectories()
+    unstash 'source'
+
+    if(JENKINS_URL == 'http://deployment.rdlund.qliktech.com/') {
+        load('groovy/installationTests.groovy')
+    }
+    else {
+        load('groovy/integrationTests.groovy')
+    }
+}
+
+node {
+    currentBuild.result = 'SUCCESS'
+    echo " ******** RESULT: ${currentBuild.result} ******** "
+    step([$class: 'GitHubCommitStatusSetter'])
+}
+
+def catchErrSteps(Exception err) {
+    currentBuild.result = 'FAILURE'
+    step([$class: 'GitHubCommitStatusSetter'])
+    if(env.BRANCH_NAME == 'master') {
+        slackSend channel: 'release-readiness', color: 'danger', message: "Qlik Sense Master Failure (<${env.BUILD_URL}|Open>)"
+    }
+    throw err
+}
+
+// Workaround method to modify workspace to not contain url encoding %2F which makes msbuild fail
+// Also append _2 in order to avoid automatic naming appending "@2"
+def getWsWithoutUrlEncoding() {
+    pwd().replace("%2F", '_') + '_2'
+}
+
+def cleanProcessesAndDirectories() {
+    bat "powershell.exe -File \"StopProcesses.ps1\""
+    bat "powershell.exe -File \"CleanDirectories.ps1\""
+}

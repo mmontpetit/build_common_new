@@ -5,16 +5,13 @@ def clientTest = true
 def buildTarget = 'build'
 
 
-def errorHandling(message, error){
-    echo "### CAUGHT error: "
-    currentBuild.result = 'FAILURE'
-}
+
 
 node {
  
     stage('Parameters') {
      	try {
-    		timeout(time: 60, unit: 'SECONDS') { // timeout before defaults are used
+    		timeout(time: 30, unit: 'SECONDS') { // timeout before defaults are used
         	paramInput = input(
  			id: 'paramInput', message: 'This project is parameterized', parameters: [
  		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web_Test'],
@@ -29,22 +26,22 @@ node {
        			didTimeout = true
     		} else {
         		userInput = false
-        		echo "Aborted by: [${user}]"
+        		println "Aborted by: [${user}]"
     		}
  		}
 
 	    if (didTimeout) {
     	    // do something on timeout
-        	echo "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
+        	println "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
     	} else if (userInput == true) {
         	// do something
  			webTest = paramInput['Web_Test']
         	clientTest = paramInput['Client_Test']
         	buildTarget = paramInput['Target']
-       		echo "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
+       		println "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
     	} else {
         	// do something else
-        	echo "Parameters setup was not successful"
+        	println "Parameters setup was not successful"
         	currentBuild.result = 'FAILURE'
     	} 
     }
@@ -58,6 +55,15 @@ node {
     stage('Client') {
     	if(buildTarget=="buildClient" | buildTarget=="build"){
          println "building Client"
+         try {
+				sh './gradlew build'
+				
+			} catch (Exception err) {
+				echo "### CAUGHT error: " + err.getMessage()
+				currentBuild.result = 'FAILURE'
+				exit 1
+			}
+         
     	}
 	}
 	//
