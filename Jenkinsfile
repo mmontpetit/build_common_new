@@ -4,7 +4,7 @@
 
 node {
  
-    stage('Parameters) {
+    stage('Parameters') {
      try {
     timeout(time: 60, unit: 'SECONDS') { // change to a convenient timeout for you
 //        userInput = input(
