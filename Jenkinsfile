@@ -1,7 +1,7 @@
  def userInput = true
  def didTimeout = false
  try {
-    timeout(time: 15, unit: 'SECONDS') { // change to a convenient timeout for you
+    timeout(time: 60, unit: 'SECONDS') { // change to a convenient timeout for you
 //        userInput = input(
 //        id: 'Proceed1', message: 'Was this successful?', parameters: [
 //        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
