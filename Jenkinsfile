@@ -17,7 +17,7 @@ node {
  		id: 'paramInput', message: 'This project is parameterized', parameters: [
  		    [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this'],
  			[$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
- 			[$class: 'ChoiceParameterDefinition', choices: 'Build All\nWeb Only\nClient Only', description: '', name: 'build_option']
+ 			[$class: 'ChoiceParameterDefinition', choices: 'All\nWeb-Only\nClient-Only', description: '', name: 'build_option']
 		]) 
 
 
