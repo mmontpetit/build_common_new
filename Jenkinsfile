@@ -61,7 +61,7 @@ node {
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
-				exit 1
+				//exit 1
 			}
          
     	}
