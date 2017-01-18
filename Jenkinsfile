@@ -38,6 +38,7 @@ node {
  			webTest = paramInput['Web_Test']
         	clientTest = paramInput['Client_Test']
         	buildTarget = paramInput['Target']
+        	println env.BRANCH_NAME
        		println "Build Target: "+buildTarget+"  |Web Test: "+webTest+"  |Client Test: "+clientTest
     	} else {
         	// do something else
@@ -49,6 +50,14 @@ node {
     stage('Web Component') {
     	if(buildTarget=="buildWeb" | buildTarget=="build"){
          println "Building Web"
+         try {
+				sh './gradlew buildWeb'
+				
+			} catch (Exception err) {
+				echo "### CAUGHT error: " + err.getMessage()
+				currentBuild.result = 'FAILURE'
+				exit 1
+			}
     	}
     } 
     //
@@ -61,7 +70,7 @@ node {
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
-				//exit 1
+				exit 1
 			}
          
     	}
