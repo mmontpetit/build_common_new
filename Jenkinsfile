@@ -9,8 +9,8 @@ node {
     		timeout(time: 60, unit: 'SECONDS') { // timeout before defaults are used
         	paramInput = input(
  			id: 'paramInput', message: 'This project is parameterized', parameters: [
- 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web Test'],
- 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Client Test'],
+ 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web_Test'],
+ 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Client_Test'],
 // 				  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
  				[$class: 'ChoiceParameterDefinition', choices: 'Build All\nWeb Only\nClient Only', description: '', name: 'Target']
 			]) 
@@ -30,9 +30,9 @@ node {
         	 echo "no input was received before timeout default are used"
     	} else if (userInput == true) {
         	// do something
-        	   def webTest = userInput['Web Test']
+        	   def webTest = userInput['Web_Test']
         	   echo ("Web Test: "+webTest)  
-        	   echo ("Web Test: "+userInput['Client Test'])
+        	   echo ("Web Test: "+userInput['Client_Test'])
                echo ("Target: "+userInput['Target'])
        		echo "this was successful"
     	} else {
