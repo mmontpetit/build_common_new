@@ -1,5 +1,7 @@
-node('IOS-SLAVE04') {
+node {
     stage('Preparation') {
+        properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'ChoiceParameterDefinition', choices: ['one', 'two', 'three'], description: '', name: 'build_step']]], pipelineTriggers([])])
+     
 		configFileProvider([configFile(fileId: '81a4b78c-98e2-4b5b-b6de-91ff113685e8', targetLocation: 'gradle.properties')]) {
            // some block
         }
