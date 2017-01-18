@@ -26,9 +26,7 @@ node {
         	userInput = false
         	echo "Aborted by: [${user}]"
     	}
-}
 
-node {
     if (didTimeout) {
         // do something on timeout
         echo "no input was received before timeout"
