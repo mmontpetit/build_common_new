@@ -1,4 +1,4 @@
- def paramInput = true
+ def userInput = true
  def didTimeout = false
 
 
@@ -28,7 +28,7 @@ node {
 	    if (didTimeout) {
     	    // do something on timeout
         	 echo "no input was received before timeout default are used"
-    	} else if (paramInput == true) {
+    	} else if (userInput == true) {
         	// do something
         	   def webTest = paramInput['Web_Test']
         	   echo ("Web Test: "+webTest)  
