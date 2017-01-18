@@ -27,13 +27,13 @@ node {
 
 	    if (didTimeout) {
     	    // do something on timeout
-        	// echo "no input was received before timeout default are used"
+        	 echo "no input was received before timeout default are used"
+    	} else if (userInput == true) {
+        	// do something
         	   def webTest = userInput['Web Test']
         	   echo ("Web Test: "+webTest)  
         	   echo ("Web Test: "+userInput['Client Test'])
                echo ("Target: "+userInput['Target'])
-    	} else if (userInput == true) {
-        	// do something
        		echo "this was successful"
     	} else {
         	// do something else
