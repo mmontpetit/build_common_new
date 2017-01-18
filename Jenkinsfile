@@ -1,6 +1,11 @@
  def userInput = true
  def didTimeout = false
- try {
+
+
+node {
+ 
+    stage('Parameters) {
+     try {
     timeout(time: 60, unit: 'SECONDS') { // change to a convenient timeout for you
 //        userInput = input(
 //        id: 'Proceed1', message: 'Was this successful?', parameters: [
@@ -27,10 +32,9 @@
         echo "Aborted by: [${user}]"
     }
  }
-
-node {
- 
-    stage('Preparation') {
+    
+    
+    
 	    if (didTimeout) {
     	    // do something on timeout
         	echo "no input was received before timeout"
