@@ -1,7 +1,8 @@
 node {
     stage('Preparation') {
-        properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'ChoiceParameterDefinition', choices: ['one', 'two', 'three'], description: '', name: 'build_step']]], pipelineTriggers([])])
-     
+       choice = new ChoiceParameterDefinition('Param name', ['option1', 'option2'] as String[], 'Description')
+       input message: 'Select one', parameters: [choice]
+		
 		configFileProvider([configFile(fileId: '81a4b78c-98e2-4b5b-b6de-91ff113685e8', targetLocation: 'gradle.properties')]) {
            // some block
         }
