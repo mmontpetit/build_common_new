@@ -1,5 +1,8 @@
  def userInput = true
  def didTimeout = false
+ def webTest = true
+ def clientTest = true
+ def buildTarget = 'Build All'
 
 
 node {
@@ -28,13 +31,13 @@ node {
 	    if (didTimeout) {
     	    // do something on timeout
         	 echo "no input was received before timeout default are used"
+        	 echo "Build Target: "+buildTarget+" Web Test: "+webTest+" Client Test: "+clientTest
     	} else if (userInput == true) {
         	// do something
-        	   def webTest = paramInput['Web_Test']
-        	   echo ("Web Test: "+webTest)  
-        	   echo ("Web Test: "+paramInput['Client_Test'])
-               echo ("Target: "+paramInput['Target'])
-       		echo "this was successful"
+        	   webTest = paramInput['Web_Test']
+        	   clientTest = paramInput['Client_Test']
+        	   buildTarget = paramInput['Target']
+       		   echo "Build Target: "+buildTarget+" Web Test: "+webTest+" Client Test: "+clientTest
     	} else {
         	// do something else
         	echo "this was not successful"
