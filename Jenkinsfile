@@ -1,7 +1,6 @@
 node {
     stage('Preparation') {
-        properties([[$class: 'ParametersDefinitionProperty', parameterDefinitions: [[$class: 'ChoiceParameterDefinition', choices: ['one', 'two', 'three'], description: '', name: 'build_step']]], pipelineTriggers([])])
-     
+        input id: 'Cc2a7d4d888ad098e3ca0ed7599d887d', message: 'Which environment?', ok: 'Submit', parameters: [[$class: 'ChoiceParameterDefinition', choices: 'Red\nBlue\nGreen', description: '', name: 'env']]
     }  
     stage('Web Component') {
     if(params["myparam"]=="buildWeb" | params["myparam"]=="build"){
