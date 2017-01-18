@@ -2,7 +2,8 @@
 
 node {
     stage('Preparation') {
-      }  
+       input id: 'Cc2a7d4d888ad098e3ca0ed7599d887d', requestTimeout: 10 ,message: 'Which environment?', ok: 'Submit', parameters: [[$class: 'ChoiceParameterDefinition', choices: 'Red\nBlue\nGreen', description: '', name: 'env']]
+    }  
     stage('Web Component') {
     if(params["myparam"]=="buildWeb" | params["myparam"]=="build"){
          println "build web only"
@@ -19,7 +20,6 @@ try {
         id: 'Proceed1', message: 'Was this successful?', parameters: [
         [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm you agree with this']
         ])
-        input id: 'Cc2a7d4d888ad098e3ca0ed7599d887d', requestTimeout: 10 ,message: 'Which environment?', ok: 'Submit', parameters: [[$class: 'ChoiceParameterDefinition', choices: 'Red\nBlue\nGreen', description: '', name: 'env']]
     }
 } catch(err) { // timeout reached or input false
     def user = err.getCauses()[0].getUser()
@@ -45,6 +45,15 @@ try {
 
     }
     stage('Publishing') {
+	def publishInput = input(
+ 		id: 'publishInput', message: 'Let\'s promote?', parameters: [
+ 	[$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+ 	[$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+	]) 
+echo ("Env: "+publishInput['env'])
+echo ("Target: "+publishInput['target'])
+
+
 
     }
     stage('promotion'){ 
