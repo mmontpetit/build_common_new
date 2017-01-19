@@ -6,7 +6,6 @@ def buildTarget = 'build'
 properties(
 [
     [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '10', artifactNumToKeepStr: '50', daysToKeepStr: '31', numToKeepStr: '500']],
-    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
     [$class: 'ParametersDefinitionProperty', parameterDefinitions:
         [
             [$class: 'ParameterSeparatorDefinition', name: 'separator-generic', sectionHeader: '<h2 style="color:darkblue;">Generic Parameters</h2>', sectionHeaderStyle: '', separatorStyle: ''],
