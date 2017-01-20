@@ -4,6 +4,7 @@ Build Common
 
 
 http://localhost:8080/job/pipeline/badge/icon
+http://localhost:8080/buildStatus/icon?job=pipeline
 
 
 
