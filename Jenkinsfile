@@ -4,6 +4,16 @@ def webTest = true
 def clientTest = true
 def buildTarget = 'build'
 
+	void setBuildStatus(String message, String state) {
+  	step([
+      	$class: "GitHubCommitStatusSetter",
+      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
+      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  	]);
+	}
+
 properties(
 [
     [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '10', artifactNumToKeepStr: '50', daysToKeepStr: '31', numToKeepStr: '500']],
@@ -25,17 +35,9 @@ node {
  
     stage('Parameters') {
 
-	void setBuildStatus(String message, String state) {
-  	step([
-      	$class: "GitHubCommitStatusSetter",
-      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
-      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
-      	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-      	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
-  	]);
-	}
 
-setBuildStatus("Build complete", "SUCCESS");
+
+		setBuildStatus("Build complete", "SUCCESS");
 
 
     // 	try {
