@@ -113,7 +113,7 @@ node {
     stage('promotion'){ 
 
 	}
-    if(currentBuild.result != "FAILURE){
+    if(currentBuild.result != "FAILURE"){
 		setBuildStatus("Build complete", "SUCCESS");
     else
 	    setBuildStatus("Build complete", "FAILURE");
