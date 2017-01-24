@@ -81,7 +81,7 @@ node {
     	if(buildTarget=="buildWeb" | buildTarget=="build"){
          println "Building Web"
          try {
-				sh './gradlew buildWeb'
+			//	sh './gradlew buildWeb'
 				
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
@@ -94,7 +94,7 @@ node {
     	if(buildTarget=="buildClient" | buildTarget=="build"){
          println "building Client"
          try {
-				sh './gradlew build'
+			//	sh './gradlew build'
 				
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
