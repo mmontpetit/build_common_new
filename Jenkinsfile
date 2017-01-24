@@ -81,11 +81,12 @@ node {
     	if(buildTarget=="buildWeb" | buildTarget=="build"){
          println "Building Web"
          try {
-			//	sh './gradlew buildWeb'
+				sh './gradlew buildWeb'
 				
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
+				setBuildStatus("Build complete", "FAILURE");
 			}
     	}
     } 
@@ -99,6 +100,7 @@ node {
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
+				setBuildStatus("Build complete", "FAILURE");
 			}
          
     	}
