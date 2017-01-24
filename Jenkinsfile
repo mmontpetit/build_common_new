@@ -14,6 +14,7 @@ void setBuildStatus(String message, String state) {
 	]);
 }
 
+
 properties(
 [
     [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '10', artifactNumToKeepStr: '50', daysToKeepStr: '31', numToKeepStr: '500']],
@@ -111,5 +112,5 @@ node {
     stage('promotion'){ 
 
 	}
-	//
+	setBuildStatus("Build complete", "SUCCESS");
 }
