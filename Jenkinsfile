@@ -3,15 +3,15 @@ def didTimeout = false
 def webTest = true
 def clientTest = true
 def buildTarget = 'build'
-//	void setBuildStatus(String message, String state) {
-//  	step([
-//      	$class: "GitHubCommitStatusSetter",
-//      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/mmontpetit/build_common"],
-//      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "jenkins"],
-//      	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
-//      	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
-//  	]);
-//	}
+	void setBuildStatus(String message, String state) {
+  	step([
+      	$class: "GitHubCommitStatusSetter",
+      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/mmontpetit/build_common"],
+      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "jenkins"],
+      	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  	]);
+	}
 
 properties(
 [
@@ -29,13 +29,10 @@ properties(
 ]
 )
 
-withGitHubCommitStatus context: "continuous-integration/jenkins/lint" {
+
 node {
  
     stage('Parameters') {
-
-
-
 
 	//	setBuildStatus("Building", "PENDING");
 
@@ -121,5 +118,4 @@ node {
 
 
 	//
-}
 }
