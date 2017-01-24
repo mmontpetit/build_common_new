@@ -115,7 +115,7 @@ node {
 	}
     if(currentBuild.result != "FAILURE"){
 		setBuildStatus("Build complete", "SUCCESS");
-    else
+	}else{
 	    setBuildStatus("Build complete", "FAILURE");
 	}
 
