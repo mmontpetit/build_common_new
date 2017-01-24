@@ -35,7 +35,7 @@ properties(
 node {
  
     stage('Parameters') {
-
+    	setBuildStatus("Build complete", "SUCCESS");
 
 
 		
@@ -112,5 +112,5 @@ node {
     stage('promotion'){ 
 
 	}
-	setBuildStatus("Build complete", "SUCCESS");
+
 }
