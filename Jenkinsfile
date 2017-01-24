@@ -7,8 +7,8 @@ def buildTarget = 'build'
 	void setBuildStatus(String message, String state) {
   	step([
       	$class: "GitHubCommitStatusSetter",
-      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
-      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/mmontpetit/build_common"],
+      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "jenkins"],
       	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   	]);
@@ -37,7 +37,7 @@ node {
 
 
 
-		setBuildStatus("Build complete", "SUCCESS");
+		setBuildStatus("Building", "pending");
 
 
     // 	try {
