@@ -24,41 +24,55 @@ properties(
 node {
  
     stage('Parameters') {
-     	try {
-    		timeout(time: 30, unit: 'SECONDS') { // timeout before defaults are used
-        	paramInput = input(
- 			id: 'paramInput', message: 'This project is parameterized', parameters: [
- 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web Test'],
- 		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Client Test'],
-// 				  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
- 				[$class: 'ChoiceParameterDefinition', choices: 'build\nbuildWeb\nbuildClient', description: '', name: 'Target']
-			]) 
-    	}
- 		} catch(err) { // timeout reached or input false
-    		def user = err.getCauses()[0].getUser()
-    		if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-       			didTimeout = true
-    		} else {
-        		userInput = false
-        		println "Aborted by: [${user}]"
-    		}
- 		}
 
-	    if (didTimeout) {
-    	    // do something on timeout
-    	    println " Git Branch Name: " + env.BRANCH_NAME
-        	println "Default Parameters for this Build are --> Target: " + buildTarget + "  |Web Test: " + webTest + "  |Client Test: " + clientTest
-    	} else if (userInput == true) {
-        	// do something
- 			webTest = paramInput['Web Test']
-        	clientTest = paramInput['Client Test']
-        	buildTarget = paramInput['Target']
-       		println "Override Parameters for this Build are --> Target: " + buildTarget + "  |Web Test: " + webTest + "  |Client Test: " + clientTest
-    	} else {
-        	// do something else
-        	println "Parameters setup was not successful"
-        	currentBuild.result = 'FAILURE'
-    	} 
+	void setBuildStatus(String message, String state) {
+  	step([
+      	$class: "GitHubCommitStatusSetter",
+      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
+      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  	]);
+	}
+
+setBuildStatus("Build complete", "SUCCESS");
+
+
+    // 	try {
+    //		timeout(time: 30, unit: 'SECONDS') { // timeout before defaults are used
+    //    	paramInput = input(
+ 	//		id: 'paramInput', message: 'This project is parameterized', parameters: [
+    //		    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Web Test'],
+ 	//	    	[$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Client Test'],
+// 				  [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env'],
+ 	//			[$class: 'ChoiceParameterDefinition', choices: 'build\nbuildWeb\nbuildClient', description: '', name: 'Target']
+	//		]) 
+    //	}
+ 	//	} catch(err) { // timeout reached or input false
+    //		def user = err.getCauses()[0].getUser()
+   // 		if('SYSTEM' == user.toString()) { // SYSTEM means timeout.
+    //   			didTimeout = true
+    //		} else {
+    //    		userInput = false
+    //    		println "Aborted by: [${user}]"
+    //		}
+ 	//	}
+
+	//    if (didTimeout) {
+    //	    // do something on timeout
+    //	    println " Git Branch Name: " + env.BRANCH_NAME
+    //    	println "Default Parameters for this Build are --> Target: " + buildTarget + "  |Web Test: " + webTest + "  |Client Test: " + clientTest
+   // 	} else if (userInput == true) {
+    //    	// do something
+ 	//		webTest = paramInput['Web Test']
+    //    	clientTest = paramInput['Client Test']
+    //    	buildTarget = paramInput['Target']
+    //   		println "Override Parameters for this Build are --> Target: " + buildTarget + "  |Web Test: " + webTest + "  |Client Test: " + clientTest
+   // 	} else {
+    //    	// do something else
+    //    	println "Parameters setup was not successful"
+     //   	currentBuild.result = 'FAILURE'
+    	//} 
     }
     //  
     stage('Web Component') {
