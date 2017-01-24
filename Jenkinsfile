@@ -3,7 +3,6 @@ def didTimeout = false
 def webTest = true
 def clientTest = true
 def buildTarget = 'build'
-class Enclosing {
 	void setBuildStatus(String message, String state) {
   	step([
       	$class: "GitHubCommitStatusSetter",
@@ -13,7 +12,7 @@ class Enclosing {
       	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   	]);
 	}
-}
+
 properties(
 [
     [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '10', artifactNumToKeepStr: '50', daysToKeepStr: '31', numToKeepStr: '500']],
