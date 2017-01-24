@@ -34,7 +34,7 @@ node {
  
     stage('Parameters') {
 
-	//	setBuildStatus("Building", "PENDING");
+		setBuildStatus("Building", "PENDING");
 
 
     // 	try {
