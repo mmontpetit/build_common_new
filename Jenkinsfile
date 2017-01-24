@@ -35,7 +35,7 @@ node {
  
     stage('Parameters') {
 
-		setBuildStatus("Building", "PENDING");
+	//	setBuildStatus("Building", "PENDING");
 
 
     // 	try {
@@ -112,9 +112,9 @@ node {
 
 	}
     if(currentBuild.result != "FAILURE"){
-		setBuildStatus("Build complete", "SUCCESS");
+		// setBuildStatus("Build complete", "SUCCESS");
 	}else{
-	    setBuildStatus("Build complete", "FAILURE");
+	   // setBuildStatus("Build complete", "FAILURE");
 	}
 
 
