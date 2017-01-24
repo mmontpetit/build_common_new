@@ -3,12 +3,11 @@ def didTimeout = false
 def webTest = true
 def clientTest = true
 def buildTarget = 'build'
-
 	void setBuildStatus(String message, String state) {
   	step([
       	$class: "GitHubCommitStatusSetter",
-      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/my-org/my-repo"],
-      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
+      	reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/mmontpetit/build_common"],
+      	contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "jenkins"],
       	errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       	statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   	]);
@@ -35,9 +34,7 @@ node {
  
     stage('Parameters') {
 
-
-
-		setBuildStatus("Build complete", "SUCCESS");
+	//	setBuildStatus("Building", "PENDING");
 
 
     // 	try {
@@ -81,11 +78,12 @@ node {
     	if(buildTarget=="buildWeb" | buildTarget=="build"){
          println "Building Web"
          try {
-				sh './gradlew buildWeb'
+			//	sh './gradlew buildWeb'
 				
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
+
 			}
     	}
     } 
@@ -94,11 +92,12 @@ node {
     	if(buildTarget=="buildClient" | buildTarget=="build"){
          println "building Client"
          try {
-				sh './gradlew build'
+			//	sh './gradlew build'
 				
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
+
 			}
          
     	}
@@ -111,5 +110,12 @@ node {
     stage('promotion'){ 
 
 	}
+    if(currentBuild.result != "FAILURE"){
+		// setBuildStatus("Build complete", "SUCCESS");
+	}else{
+	   // setBuildStatus("Build complete", "FAILURE");
+	}
+
+
 	//
 }
