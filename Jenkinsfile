@@ -29,16 +29,12 @@ properties(
 ]
 )
 
-
+withGitHubCommitStatus context: "continuous-integration/jenkins/lint" {
 node {
  
     stage('Parameters') {
 
-	withGitHubCommitStatus context: "continuous-integration/jenkins/lint" {
-    	node {
-      	checkout scm
-    }
-  }
+
 
 
 	//	setBuildStatus("Building", "PENDING");
@@ -125,4 +121,5 @@ node {
 
 
 	//
+}
 }
