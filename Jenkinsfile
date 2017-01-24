@@ -37,7 +37,7 @@ node {
 
 
 
-		setBuildStatus("Building", "pending");
+		setBuildStatus("Building", "PENDING");
 
 
     // 	try {
@@ -86,7 +86,7 @@ node {
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
-				setBuildStatus("Build complete", "FAILURE");
+
 			}
     	}
     } 
@@ -100,7 +100,7 @@ node {
 			} catch (Exception err) {
 				echo "### CAUGHT error: " + err.getMessage()
 				currentBuild.result = 'FAILURE'
-				setBuildStatus("Build complete", "FAILURE");
+
 			}
          
     	}
