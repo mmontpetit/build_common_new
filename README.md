@@ -8,4 +8,4 @@ testing the code
 
 test
 
-<img src="https://s3.amazonaws.com/jenkins-github-badge/build-common/master/icon" alt="Project Badge" width="300">
+<img src="https://s3.amazonaws.com/jenkins-github-badge/build-common/master/build-aborted-lightgrey-flat.svg" alt="Project Badge" width="300">
