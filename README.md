@@ -8,6 +8,4 @@ testing the code
 
 test
 
-<a href="https://olivermak.es/">
-  <img src="https://olivermak.es/resources/icons/favicon144.svg" width="100%" height="144">
-</a>
+<img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true" alt="Project Badge" width="300">
