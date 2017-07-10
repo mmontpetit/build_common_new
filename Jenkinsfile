@@ -35,6 +35,10 @@ node {
     stage('Parameters') {
 
 	//	setBuildStatus("Building", "PENDING");
+	
+	 withEnv(['VERSION=$BUILD_NUMBER-$GIT_BRANCH']) {
+    sh 'echo $VERSION'
+}
 
 
     // 	try {
