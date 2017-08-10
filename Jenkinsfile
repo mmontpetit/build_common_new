@@ -22,7 +22,7 @@ properties(
             [$class: 'BooleanParameterDefinition', defaultValue: true, description: 'Run Web Tests', name: 'Web_Test'],
  		    [$class: 'BooleanParameterDefinition', defaultValue: true, description: 'Run Client Tests', name: 'Client_Test'],
  		    [$class: 'hudson.model.ChoiceParameterDefinition', choices: 'build\nbuildWeb\nbuildClient', description: '', name: 'Target']
-        
+        test
         ]
     ],
     [$class: 'ThrottleJobProperty', categories: [], limitOneJobWithMatchingParams: false, maxConcurrentPerNode: 0, maxConcurrentTotal: 0, paramsToUseForLimit: '', throttleEnabled: false, throttleOption: 'project']
